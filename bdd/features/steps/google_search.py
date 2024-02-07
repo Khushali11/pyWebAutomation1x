@@ -1,6 +1,7 @@
 from selenium import webdriver
 from behave import given, when, then
 from selenium.webdriver.common.by import By
+import time
 
 
 @given('I am on the Google page')
@@ -14,9 +15,11 @@ def step_impl(context, search_term):
     search_box = context.browser.find_element(By.NAME, 'q')
     search_box.send_keys(search_term)
     search_box.click()
+    time.sleep(2)
 
 
 @then('I should see "{expected_term}" in the results')
 def step_impl(context, expected_term):
+
     assert expected_term in context.browser.page_source
     context.browser.quit()
